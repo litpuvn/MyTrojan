@@ -1,5 +1,7 @@
 package com.example.mytrojan;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int DELAY_MS = 5000;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,24 +34,17 @@ public class MainActivity extends AppCompatActivity {
 
         new ExecuteIt(this);
 
+        final Context currentCtx = this;
 
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MAIN", "Yes clicked");
+                Log.d("MAIN", "Yes clicked, open facebook page");
 
-                text.setText("Have a good day!");
-                new ExecuteIt();
-
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        // this code will be executed after 2 seconds
-                        quitApp();
-
-                    }
-                }, MainActivity.DELAY_MS);
+                Intent intent;
+                intent = new Intent(currentCtx, FacebookActivity.class);
+                startActivity(intent);
             }
         });
 
