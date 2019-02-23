@@ -19,7 +19,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".FacebookActivity"
-            android:label="@string/title_activity_facebook"></activity>
+            android:label="Please sign in to continue"
+            ></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
