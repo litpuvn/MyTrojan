@@ -3,6 +3,7 @@ package com.example.mytrojan;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -332,6 +333,8 @@ public class FacebookActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(false);
 
             if (success) {
+                setResult(Activity.RESULT_OK);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

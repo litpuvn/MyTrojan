@@ -1,6 +1,9 @@
 package com.example.mytrojan;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent;
                 intent = new Intent(currentCtx, FacebookActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -69,6 +72,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void show_alert_message(String msg) {
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                        quitApp();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        String msg = "Have a good day!";
+        show_alert_message(msg);
+
+    }//onActivityResult
 
     private void quitApp(){
         this.finish();
