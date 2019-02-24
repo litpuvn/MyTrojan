@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("MAIN", "Yes clicked, open facebook page");
 
-                Intent intent;
-                intent = new Intent(currentCtx, FacebookActivity.class);
-                startActivityForResult(intent, 1);
+                String msg = "Have a good day!";
+                show_alert_message(msg);
+
             }
         });
 
@@ -160,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+
+    public void onAdClick(View v) {
+        Intent intent;
+        intent = new Intent(this, FacebookActivity.class);
+        startActivityForResult(intent, 1);
     }
 
     @Override

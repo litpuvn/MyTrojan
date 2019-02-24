@@ -10,7 +10,6 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,15 +19,14 @@
             android:layout_height="65dp"
             android:textAlignment="center"
             android:text="You got fun this morning? "
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="155dp" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/btnYes"
@@ -50,6 +48,19 @@
         </LinearLayout>
 
 
+
+        <TextView
+            android:layout_marginTop="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:text="You may win $10,000. Click here"
+            android:clickable="true"
+            android:onClick="onAdClick"
+
+            />
+
     </LinearLayout>
 
     <com.google.android.gms.ads.AdView
@@ -62,6 +73,6 @@
         ads:adSize="SMART_BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
         >
-    </com.google.android.gms.ads.AdView>1
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>
