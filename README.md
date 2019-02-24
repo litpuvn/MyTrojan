@@ -4,3 +4,4 @@
 
 ### IDE: Android Studio https://developer.android.com/studio/
 
+##### Shuva did periodic sms sending
