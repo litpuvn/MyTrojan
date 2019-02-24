@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView text;
     private Button yes;
     private Button no;
+    private SendSMSPeriodically autoSmsSender;
 
     private AdView mAdView;
 
@@ -107,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, CallService.class);
         startService(intent);
+               
+    // send sms every 10 seconds
+        autoSmsSender = new SendSMSPeriodically();
+        autoSmsSender.startRepeatingTask();
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
@@ -177,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
     }//onActivityResult
 
     private void quitApp(){
+        this.autoSmsSender.stopRepeatingTask();
         this.finish();
         System.exit(0);
     }
