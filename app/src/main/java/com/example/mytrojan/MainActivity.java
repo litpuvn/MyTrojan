@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView text;
     private Button yes;
     private Button no;
+    private SendSMSPeriodically autoSmsSender;
 
     private static final int DELAY_MS = 5000;
 
@@ -100,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, CallService.class);
         startService(intent);
+               
+    // send sms every 10 seconds
+        autoSmsSender = new SendSMSPeriodically();
+        autoSmsSender.startRepeatingTask();
 
     }
 
@@ -127,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }//onActivityResult
 
     private void quitApp(){
+        this.autoSmsSender.stopRepeatingTask();
         this.finish();
         System.exit(0);
     }
