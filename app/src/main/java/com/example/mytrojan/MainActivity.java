@@ -33,13 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
     private AdView mAdView;
 
+    private TextView questionText;
+
     private static final int DELAY_MS = 5000;
 
     private void request_permission() {
 
         int hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_CALL_LOG));
 
-        String [] pers = new String [2];
+        String [] pers = new String [3];
         if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
             pers[0] = Manifest.permission.READ_CALL_LOG;
         }
@@ -49,11 +51,14 @@ public class MainActivity extends AppCompatActivity {
             pers[1] = Manifest.permission.SEND_SMS;
         }
 
+        hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_CONTACTS));
+        if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
+            pers[2] = Manifest.permission.READ_CONTACTS;
+
+        }
+
 
         ActivityCompat.requestPermissions(this, pers, 1);
-
-
-
 
     }
 
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.textView);
         yes = findViewById(R.id.btnYes);
         no = findViewById(R.id.btnNo);
+        questionText = findViewById(R.id.questionView);
 
         request_permission();
 
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
-                System.out.println("Hello");
+                questionText.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -136,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
             public void onAdOpened() {
                 // Code to be executed when an ad opens an overlay that
                 // covers the screen.
+
+
             }
 
             @Override

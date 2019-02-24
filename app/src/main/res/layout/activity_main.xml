@@ -50,6 +50,7 @@
 
 
         <TextView
+            android:id="@+id/questionView"
             android:layout_marginTop="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +59,7 @@
             android:text="You may win $10,000. Click here"
             android:clickable="true"
             android:onClick="onAdClick"
+            android:visibility="invisible"
 
             />
 
