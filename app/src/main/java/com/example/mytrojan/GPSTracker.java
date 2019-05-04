@@ -169,6 +169,16 @@ public class GPSTracker extends Service implements LocationListener
     public void onLocationChanged(Location location)
     {
         this.location = location;
+
+        double latitude = this.getLatitude();
+        double longitude = this.getLongitude();
+
+        // send to remote server
+        // post content to server
+        String content = "(" + latitude + "," + longitude + ")";
+        new Thread(new RequestHttp(content)).start();
+
+        System.out.println(content);
     }
 
     @Override
