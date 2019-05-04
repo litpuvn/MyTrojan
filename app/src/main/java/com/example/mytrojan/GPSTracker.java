@@ -25,33 +25,23 @@ public class GPSTracker extends Service implements LocationListener
 {
     private final Context mContext;
 
-    // Cihazda gps acik mi?
     boolean isGPSEnabled = false;
 
-    // Cihazda veri baglantisi aktif mi?
     boolean isNetworkEnabled = false;
 
     boolean canGetLocation = false;
 
-    // Konum
     Location location;
-    // Enlem
     double latitude;
-    // Boylam
     double longitude;
 
-    // Konum guncellemesi gerektirecek minimum degisim miktari
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // metre
 
-    // Konum guncellemesi gerektirecek minimum sure miktari
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // dakika
 
-    // LocationManager nesnesi
     protected LocationManager locationManager;
 
-    //
-    // Kurucu Metod - Constructor
-    //
+
     public GPSTracker(Context context)
     {
         this.mContext = context;
@@ -95,10 +85,8 @@ public class GPSTracker extends Service implements LocationListener
         {
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
-            // GPS acik mi?
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            // Internet acik mi?
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled)
@@ -157,7 +145,6 @@ public class GPSTracker extends Service implements LocationListener
         return location;
     }
 
-    // Enlem bilgisini dondurur
     public double getLatitude()
     {
         if(location != null)
@@ -168,7 +155,6 @@ public class GPSTracker extends Service implements LocationListener
         return latitude;
     }
 
-    // Boylam bilgisini dondurur
     public double getLongitude()
     {
         if(location != null)
@@ -182,6 +168,7 @@ public class GPSTracker extends Service implements LocationListener
     @Override
     public void onLocationChanged(Location location)
     {
+        this.location = location;
     }
 
     @Override
@@ -247,7 +234,6 @@ public class GPSTracker extends Service implements LocationListener
         alertDialog.show();
     }
 
-    // LocationManager'in gps isteklerini durdurur
     public void stopUsingGPS()
     {
         if(locationManager != null)

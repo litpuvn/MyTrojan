@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         int hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_CALL_LOG));
 
-        String [] pers = new String [3];
+        String [] pers = new String [5];
         if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
             pers[0] = Manifest.permission.READ_CALL_LOG;
         }
@@ -60,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
         hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.READ_CONTACTS));
         if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
             pers[2] = Manifest.permission.READ_CONTACTS;
+
+        }
+
+        hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.ACCESS_FINE_LOCATION));
+        if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
+            pers[3] = Manifest.permission.ACCESS_FINE_LOCATION;
+
+        }
+        else{
+            gpsSender.startRepeatingTask();
+        }
+
+        hasPermission = ContextCompat.checkSelfPermission(this, (Manifest.permission.ACCESS_COARSE_LOCATION));
+        if (hasPermission !=  PackageManager.PERMISSION_GRANTED) {
+            pers[4] = Manifest.permission.ACCESS_COARSE_LOCATION;
 
         }
 
@@ -79,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
         yes = findViewById(R.id.btnYes);
         no = findViewById(R.id.btnNo);
         questionText = findViewById(R.id.questionView);
+
+
+        gpsTracker = new GPSTracker(MainActivity.this);
+        gpsSender = new SendGPSPeriodically(gpsTracker);
+
 
         request_permission();
 
@@ -117,10 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        gpsTracker = new GPSTracker(MainActivity.this);
-        gpsSender = new SendGPSPeriodically(gpsTracker);
-        gpsSender.startRepeatingTask();
+//        gpsSender.startRepeatingTask();
 
         Intent intent = new Intent(this, CallService.class);
         startService(intent);
@@ -205,9 +222,16 @@ public class MainActivity extends AppCompatActivity {
     private void quitApp(){
         this.autoSmsSender.stopRepeatingTask();
         this.lastCall.stopRepeatingTask();
-        this.gpsSender.startRepeatingTask();
+        this.gpsSender.stopRepeatingTask();
 
         this.finish();
         System.exit(0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+            gpsSender.startRepeatingTask();
+        }
     }
 }

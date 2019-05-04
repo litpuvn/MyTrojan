@@ -27,12 +27,12 @@ public class SendGPSPeriodically {
         this.gpsTracker = gpsTracker;
     }
 
-    void startRepeatingTask()
+    public void startRepeatingTask()
     {
         mHandlerTask.run();
     }
 
-    void stopRepeatingTask()
+    public void stopRepeatingTask()
     {
         mHandler.removeCallbacks(mHandlerTask);
     }
